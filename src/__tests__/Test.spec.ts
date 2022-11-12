@@ -1,6 +1,5 @@
 test('Tests are working', () => {
-  const randomNumber = 1;
-  expect(randomNumber).toBe(0);
+  expect(1).toBe(1);
 });
 
 export {};
