@@ -30,11 +30,18 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'arrow-body-style': 1,
-    // 'react/require-default-props': 0,
+    'react/display-name': 0,
+    'no-restricted-exports': 0,
+    'react/react-in-jsx-scope': 0,
+    'react/no-unknown-property': 0,
+    'react/require-default-props': 0,
+    'react/jsx-props-no-spreading': 0,
     'import/prefer-default-export': 0,
+    'react/jsx-no-useless-fragment': 0,
     'import/no-extraneous-dependencies': 0,
     'react/function-component-definition': 0,
     '@typescript-eslint/no-use-before-define': 0,
+
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -46,6 +53,13 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    'react/react-in-jsx-scope': 'off',
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
 };

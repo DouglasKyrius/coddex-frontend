@@ -7,6 +7,7 @@ import {
 } from './Button.styles';
 
 export const Button = ({
+  type,
   isCancel,
   isDestructive,
   isLoading,
@@ -15,7 +16,7 @@ export const Button = ({
 }: ButtonProps) => {
   if (isCancel) {
     return (
-      <CancelButton onClick={onClickHandler}>
+      <CancelButton type={type} onClick={onClickHandler}>
         <ButtonText>{children}</ButtonText>
       </CancelButton>
     );
@@ -23,7 +24,11 @@ export const Button = ({
 
   if (isDestructive) {
     return (
-      <DestructiveButton onClick={onClickHandler} disabled={isLoading}>
+      <DestructiveButton
+        type={type}
+        onClick={onClickHandler}
+        disabled={isLoading}
+      >
         {isLoading && <Loading />}
         <ButtonText>{children}</ButtonText>
       </DestructiveButton>
@@ -31,7 +36,7 @@ export const Button = ({
   }
 
   return (
-    <DefaultButton onClick={onClickHandler} disabled={isLoading}>
+    <DefaultButton type={type} onClick={onClickHandler} disabled={isLoading}>
       {isLoading && <Loading />}
       <ButtonText>{children}</ButtonText>
     </DefaultButton>
@@ -39,6 +44,7 @@ export const Button = ({
 };
 
 type ButtonProps = {
+  type?: 'button' | 'submit' | 'reset' | undefined;
   isCancel?: boolean;
   isLoading?: boolean;
   children?: ReactNode;
@@ -47,6 +53,7 @@ type ButtonProps = {
 };
 
 Button.defaultProps = {
+  type: 'button',
   isCancel: false,
   isDestructive: false,
   isLoading: false,
@@ -57,9 +64,7 @@ Button.defaultProps = {
 const Loading = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    x=""
-    y="0"
-    width={50}
+    width={40}
     version="1.1"
     viewBox="0 0 100 100"
     xmlSpace="preserve"

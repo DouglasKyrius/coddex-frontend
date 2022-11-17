@@ -1,8 +1,7 @@
-// import { Helmet } from "react-helmet-async";
-import Home from '@/modules/home';
+import { Router } from './routes/Router';
 
 function App() {
-  return <Home />;
+  return <Router />;
 }
 
 export default App;

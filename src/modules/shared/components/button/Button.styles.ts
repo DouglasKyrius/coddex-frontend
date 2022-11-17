@@ -4,19 +4,28 @@ export const DefaultButton = tw.button`
   flex
   items-center
   justify-center
-  capitalize
+  text-white
+  bg-zinc-900
+  transition
+  font-medium
+  rounded-lg
+  text-sm
   w-full
-  h-12
-  rounded-3xl
+  px-5
+  py-3
   cursor-pointer
-  transition-all
-  bg-yellow-400
-  hover:bg-yellow-500
-  disabled:bg-yellow-200
-  disabled:text-gray-700
-  disabled:cursor-not-allowed
-  lg:w-auto
-  lg:min-w-[164px]
+  hover:bg-zinc-800
+  focus:(
+    ring-2
+    outline-none
+    ring-red-300
+  )
+  disabled:(
+    py-0.5
+    bg-zinc-200
+    text-gray-700
+    cursor-not-allowed
+  )
 `;
 
 export const CancelButton = tw(DefaultButton)`
@@ -28,14 +37,13 @@ export const DestructiveButton = tw(DefaultButton)`
   bg-red-600
   text-white
   hover:bg-red-700
-  disabled:bg-red-900
-  disabled:text-gray-300
+  disabled:(
+    bg-red-900
+    text-gray-300
+  )
 `;
 
 export const ButtonText = tw.span`
-  flex
-  items-center
-  justify-center
-  h-full
+  text-center
   font-semibold
 `;
