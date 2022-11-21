@@ -1,47 +1,10 @@
-import { ReactNode } from 'react';
+import { memo, ReactNode } from 'react';
 import {
   ButtonText,
   CancelButton,
   DefaultButton,
   DestructiveButton,
 } from './Button.styles';
-
-export const Button = ({
-  type,
-  isCancel,
-  isDestructive,
-  isLoading,
-  children,
-  onClickHandler,
-}: ButtonProps) => {
-  if (isCancel) {
-    return (
-      <CancelButton type={type} onClick={onClickHandler}>
-        <ButtonText>{children}</ButtonText>
-      </CancelButton>
-    );
-  }
-
-  if (isDestructive) {
-    return (
-      <DestructiveButton
-        type={type}
-        onClick={onClickHandler}
-        disabled={isLoading}
-      >
-        {isLoading && <Loading />}
-        <ButtonText>{children}</ButtonText>
-      </DestructiveButton>
-    );
-  }
-
-  return (
-    <DefaultButton type={type} onClick={onClickHandler} disabled={isLoading}>
-      {isLoading && <Loading />}
-      <ButtonText>{children}</ButtonText>
-    </DefaultButton>
-  );
-};
 
 type ButtonProps = {
   type?: 'button' | 'submit' | 'reset' | undefined;
@@ -52,14 +15,44 @@ type ButtonProps = {
   onClickHandler?: () => void;
 };
 
-Button.defaultProps = {
-  type: 'button',
-  isCancel: false,
-  isDestructive: false,
-  isLoading: false,
-  children: undefined,
-  onClickHandler: undefined,
-};
+export const Button = memo(
+  ({
+    type,
+    isCancel,
+    isDestructive,
+    isLoading,
+    children,
+    onClickHandler,
+  }: ButtonProps) => {
+    if (isCancel) {
+      return (
+        <CancelButton type={type} onClick={onClickHandler}>
+          <ButtonText>{children}</ButtonText>
+        </CancelButton>
+      );
+    }
+
+    if (isDestructive) {
+      return (
+        <DestructiveButton
+          type={type}
+          onClick={onClickHandler}
+          disabled={isLoading}
+        >
+          {isLoading && <Loading />}
+          <ButtonText>{children}</ButtonText>
+        </DestructiveButton>
+      );
+    }
+
+    return (
+      <DefaultButton type={type} onClick={onClickHandler} disabled={isLoading}>
+        {isLoading && <Loading />}
+        <ButtonText>{children}</ButtonText>
+      </DefaultButton>
+    );
+  }
+);
 
 const Loading = () => (
   <svg

@@ -5,5 +5,5 @@ export const BackgroundStyle = tw.div`
   h-screen
   bg-center
   bg-no-repeat
-  md:[background-image: url('/assets/sunset.svg')]
+  md:[background-image: url('/assets/nebulae.svg')]
 `;

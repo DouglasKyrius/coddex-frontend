@@ -8,10 +8,14 @@ import {
 } from 'react';
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   getAuth,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithRedirect,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { firebaseApp } from '../../services/firebase';
 import { reducer } from './FirebaseContext.reducer';
@@ -24,6 +28,7 @@ const initialState = {
 };
 
 const AUTH = getAuth(firebaseApp);
+const googleProvider = new GoogleAuthProvider();
 
 const AuthContext = createContext({} as AuthContextInterface);
 
@@ -49,18 +54,40 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const login = useCallback(
-    ({ email, password }: { email: string; password: string }) =>
+    async ({ email, password }: { email: string; password: string }) =>
       signInWithEmailAndPassword(AUTH, email, password),
     []
   );
 
+  const signInWithGoogle = useCallback(
+    () => signInWithRedirect(AUTH, googleProvider),
+    []
+  );
+
   const register = useCallback(
-    ({ email, password }: { email: string; password: string }) =>
-      createUserWithEmailAndPassword(AUTH, email, password),
+    async ({
+      email,
+      password,
+      firstName,
+      lastName,
+    }: {
+      email: string;
+      password: string;
+      firstName?: string;
+      lastName?: string;
+    }) => {
+      const res = await createUserWithEmailAndPassword(AUTH, email, password);
+      const { user } = res;
+      await updateProfile(user, {
+        displayName: `${firstName} ${lastName}`,
+      });
+    },
     []
   );
 
   const logout = useCallback(() => signOut(AUTH), []);
+
+  const destroyUser = useCallback(() => deleteUser(state.user), [state.user]);
 
   const values = useMemo(
     () => ({
@@ -68,8 +95,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       login,
       logout,
       register,
+      destroyUser,
+      signInWithGoogle,
     }),
-    [state, login, logout, register]
+    [state, login, logout, register, destroyUser, signInWithGoogle]
   );
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

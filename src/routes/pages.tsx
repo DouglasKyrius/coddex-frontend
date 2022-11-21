@@ -1,18 +1,17 @@
 import { lazy, LazyExoticComponent, Suspense } from 'react';
-import ProgressBar from '@/modules/shared/components/ProgressBar';
+import { LoadingScreen } from '@/modules/shared/components/LoadingScreen';
 
 const Loadable =
   (Component: LazyExoticComponent<() => JSX.Element>) => (props: any) =>
     (
       <>
-        <ProgressBar />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingScreen />}>
           <Component {...props} />
         </Suspense>
       </>
     );
 
-// Home
+// HOME
 export const Home = Loadable(lazy(() => import('@/modules/home')));
 // AUTHENTICATION
 export const Login = Loadable(lazy(() => import('@/modules/auth/pages/login')));

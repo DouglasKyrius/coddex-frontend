@@ -1,54 +1,9 @@
+import { memo } from 'react';
 import tw, { styled } from 'twin.macro';
 
 type InputProps = {
   hasError?: boolean;
 };
-
-export const Input = styled.input(({ hasError }: InputProps) => [
-  tw`
-    block
-    py-2.5
-    px-0
-    w-full
-    text-sm
-    text-gray-900
-    bg-transparent
-    border-0
-    border-b-2
-    border-gray-300
-    appearance-none
-    focus:(
-      outline-none
-      ring-0
-      border-zinc-600
-    )
-  `,
-  hasError && tw`border-red-600`,
-]);
-
-export const Label = tw.label`
-  absolute
-  text-sm
-  text-gray-500
-  duration-300
-  transform
-  -translate-y-6
-  scale-75
-  top-3
-  -z-10
-  origin-[0]
-  peer-focus:(
-    left-0
-    font-medium
-    text-zinc-600
-    scale-75
-    -translate-y-6
-  )
-  peer-placeholder-shown:(
-    scale-100
-    translate-y-0
-  )
-`;
 
 export const AuthWrapper = tw.div`
   [font-family: 'Manrope', sans-serif]
@@ -77,12 +32,60 @@ export const SubTitle = tw.p`
   text-xl
 `;
 
-export const ForgotPassword = tw.p`
+export const Input = memo(
+  styled.input(({ hasError }: InputProps) => [
+    tw`
+    block
+    py-2.5
+    px-0
+    w-full
+    text-sm
+    text-gray-900
+    bg-transparent
+    border-0
+    border-b-2
+    border-gray-300
+    appearance-none
+    tracking-wide
+    focus:(
+      outline-none
+      ring-0
+      border-zinc-600
+    )
+  `,
+    hasError && tw`border-red-600`,
+  ])
+);
+
+export const Label = memo(tw.label`
+  absolute
+  text-sm
+  text-gray-500
+  duration-300
+  transform
+  -translate-y-6
+  scale-75
+  top-3
+  -z-10
+  origin-[0]
+  peer-focus:(
+    left-0
+    text-zinc-600
+    scale-75
+    -translate-y-6
+  )
+  peer-placeholder-shown:(
+    scale-100
+    translate-y-0
+  )
+`);
+
+export const ForgotPassword = memo(tw.p`
   underline
   text-sm
   text-right
   mb-6
-`;
+`);
 
 export const Divider = styled.div`
   ::before,
@@ -99,7 +102,7 @@ export const Divider = styled.div`
   }
   ${tw`
     text-sm
-    mt-8
+    my-6
     flex
     shrink-0
     whitespace-nowrap
@@ -111,20 +114,16 @@ export const Divider = styled.div`
 `;
 
 export const SocialWrapper = tw.div`
-  hidden
-  md:(
-    flex
-    gap-x-4
-    items-center
-    justify-center
-    p-4
-  )
+  flex
+  items-center
+  justify-center
 `;
 
 export const SocialLogin = tw.button`
   flex
   items-center
   justify-center
+  w-full
   py-2
   px-4
   gap-x-2
@@ -136,15 +135,6 @@ export const SocialLogin = tw.button`
     outline-none
     ring-red-300
   )
-`;
-
-export const MobileSocialWrapper = tw.div`
-  flex
-  gap-x-10
-  items-center
-  justify-center
-  p-4
-  md:hidden
 `;
 
 export const BottomText = styled.p`
